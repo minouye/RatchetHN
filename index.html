@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ratchet template page</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Set Apple icons for when prototype is saved to home screen -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link rel="stylesheet" href="ratchet.css">
+
+    <!-- Include the compiled Ratchet JS -->
+    <script src="ratchet.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <!-- Intro paragraph styles. Delete once you start using this page -->
+    <style type="text/css">
+        .welcome {
+          line-height: 1.5;
+          color: #555;
+        }
+        
+        .sub-title {
+          color:#999;
+          font-size:12px;
+          
+          
+        }
+        
+        .list li > a:not([class*="button"]) {
+          padding-bottom: 3px;
+        }
+    </style>
+
+  </head>
+  <body>
+    
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+         
+              // $.ajax({
+              //     url : "http://api.ihackernews.com/page?format=jsonp&callback=yourFunction",
+              //     cache: 'false',
+              //     type: 'GET',
+              //     dataType: "jsonp",
+              //     success : function (data) {
+              //         $(".text").html(data);
+              //         obj = JSON.parse(data);
+              // 
+              //         alert(obj.count);
+              //         
+              //     }
+              // });
+              
+              var url =  "http://hndroidapi.appspot.com/news/format/json/page/";
+                 $.getJSON(url + "?appid=&callback=?", function(json) {
+                     // for(i in tweets) {
+                     //                          tweet = tweets[i];
+                     //                          $("#tweet-list").append(tweet.text + "<hr />");
+                     //                      }
+                     console.log(json['items']);
+                    
+                     $.each(json['items'], function (i, item) {
+                        var comments = item.comments.split(/\s+/);
+                             console.log(item.title);
+                             $('.list').append('<li><a href="' + item.url + '"><strong>' + (i + 1) + '.</strong> ' + item.title + '</a><span class="count">' + comments[0] + '</span><br/><span class="sub-title">' + item.score + ' by ' + item.user + ' ' + item.time + '</span></li>');
+                         });
+                 });
+       
+      });
+          
+
+    </script>
+    
+    <header class="bar-title">
+      <h1 class="title">RatchetHN</h1>
+      <a class="button" href="hn.html">
+      About
+      </a>
+    </header>
+    <div class="content">
+      <ul class="list">
+        
+      </ul>
+    </div>
+
+
+  
+  </body>
+  
+  
+  
+  
+</html>
